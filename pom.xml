@@ -159,7 +159,7 @@
               <extraJvmArguments>-Xms128m -Xmx512m</extraJvmArguments>
 	          <programs>
 	            <program>
-	              <mainClass>com.leansoft.mxjc.XSCFacade</mainClass>
+	              <mainClass>com.leansoft.mwsc.WsImport</mainClass>
 	              <name>mwsc</name>
 	            </program>
 	          </programs>

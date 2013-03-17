@@ -57,6 +57,10 @@ public class WsimportOptionsEx extends WsimportOptions {
 	
     public ModuleName module = ModuleName.NANO;
     
+    public boolean eBaySOAPService = false;;
+    
+    public boolean eBayShoppingSerivce = false;;
+    
     public String prefix;
 	
     /**
@@ -83,6 +87,16 @@ public class WsimportOptionsEx extends WsimportOptions {
         
         if (args[i].equals("-pico")) {
         	module = ModuleName.PICO;
+        	return 1;
+        }
+        
+        if (args[i].equals("-ebaysoa")) {
+        	this.eBaySOAPService = true;
+        	return 1;
+        }
+        
+        if (args[i].equals("-ebayshopping")) {
+        	this.eBayShoppingSerivce = true;
         	return 1;
         }
         

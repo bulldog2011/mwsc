@@ -216,6 +216,8 @@ public class WsimportTool {
                 CGConfig cgConfig = new CGConfig();
                 cgConfig.picoPrefix = options.prefix;
                 cgConfig.picoServiceGroup = wsCodeGenModel.getServiceEndpointInterfaces().get(0).getName();
+                cgConfig.eBaySOAService = options.eBaySOAPService;
+                cgConfig.eBayShoppingAPI = options.eBayShoppingSerivce;
         		
                 // use specific client module to generate code
                 Set<FileInfo> targetFiles = new HashSet<FileInfo>();

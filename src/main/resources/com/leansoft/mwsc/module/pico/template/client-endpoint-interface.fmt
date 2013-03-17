@@ -5,20 +5,21 @@
 
 
 #import <Foundation/Foundation.h>
+#import "PicoSOAPClient.h"
 [#list imports as import]
 #import "${import}.h"
 [/#list]
 
 
 /**
- This class is the basic interface to the ${endpointInterface.name} Web Service for the user.
+ This class is the basic interface to the ${endpointInterface.name} Web Service for the client.
 */ 
 [#if endpointInterface.docComment??]
 /*
  ${endpointInterface.docComment?chop_linebreak?replace("\n", "\n ")?replace("\t", "")}
 */
 [/#if]
-@interface ${endpointInterface.name}_Client : NSObject {
+@interface ${endpointInterface.name}_Client : PicoSOAPClient {
 
 }
 
@@ -27,7 +28,9 @@
 /**
  ${method.docComment?default("public method")?replace("\n", "\n ")?replace("\t", "")}
 */
--(${method.returnType.fullName} *) ${method.name}: (${param.type.fullName} *) request; 
+-(void)${method.name}:(${param.type.fullName} *) requestObject 
+      success:(void (^)(${method.returnType.fullName} *responseObject))success
+      failure:(void (^)(NSError *error, id<PicoBindable> soapFault))failure;
 
     [/#list]
 
