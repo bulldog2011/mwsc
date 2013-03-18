@@ -14,13 +14,7 @@
       success:(void (^)(${method.returnType.fullName} *responseObject))success
       failure:(void (^)(NSError *error))failure {
  
-     [#if eBaySOAService??]
-       [#if method.webMethodAnnotation.operationName?length > 0]
-     [super setDefaultHeader:@"X-EBAY-SOA-OPERATION-NAME" value:@"${method.webMethodAnnotation.operationName}"];
-       [#else]
-     [super setDefaultHeader:@"X-EBAY-SOA-OPERATION-NAME" value:@"${method.name}"];       
-       [/#if]
-     [#elseif eBayShoppingAPI??]
+     [#if eBayShoppingAPI??]
        [#if method.webMethodAnnotation.operationName?length > 0]
      [super setDefaultHeader:@"X-EBAY-API-CALL-NAME" value:@"${method.webMethodAnnotation.operationName}"];
        [#else]

@@ -70,12 +70,13 @@ public class PicoWSClientModule extends AbstractWSClientModule {
 		for (SEIInfo interfaceInfo : cgModel.getServiceEndpointInterfaces()) {
 			fmModel.put("imports", this.getInterfaceImports(interfaceInfo));
 			fmModel.put("endpointInterface", interfaceInfo);
-			// special logic for ebay service, just a convenient for ebay service proxy generation
+			// special logic for ebay service demo, just a convenient for ebay service proxy generation
 			if (config.eBaySOAService) {
 				fmModel.put("eBaySOAService", config.eBaySOAService);
-			}
-			if (config.eBayShoppingAPI) {
+			} else if (config.eBayShoppingAPI) {
 				fmModel.put("eBayShoppingAPI", config.eBayShoppingAPI);
+			} else if (config.eBayTradingAPI) {
+				fmModel.put("eBayTradingAPI", config.eBayTradingAPI);
 			}
 			String relativePath = ClassNameUtil.packageNameToPath(interfaceInfo.getPackageName());
 			relativePath += File.separator + "client";

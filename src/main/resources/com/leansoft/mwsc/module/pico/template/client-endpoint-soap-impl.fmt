@@ -20,12 +20,15 @@
        [#else]
      [super setDefaultHeader:@"X-EBAY-SOA-OPERATION-NAME" value:@"${method.name}"];       
        [/#if]
-     [#elseif eBayShoppingAPI??]
+     [#elseif eBayTradingAPI??]
        [#if method.webMethodAnnotation.operationName?length > 0]
-     [super setDefaultHeader:@"X-EBAY-API-CALL-NAME" value:@"${method.webMethodAnnotation.operationName}"];
-       [#else]
-     [super setDefaultHeader:@"X-EBAY-API-CALL-NAME" value:@"${method.name}"];       
-       [/#if]
+     [self.additionalParameters setObject: @"${method.webMethodAnnotation.operationName}" forKey: @"callname"];
+       [#else]            
+     [self.additionalParameters setObject: @"${method.name}" forKey: @"callname"];
+        [/#if]
+     if(!requestObject.version) {
+        requestObject.version = [self.additionalParameters objectForKey:@"version"];
+     }       
      [/#if]
  
      [super invoke:requestObject responseClass:[${method.returnType.fullName} class]
