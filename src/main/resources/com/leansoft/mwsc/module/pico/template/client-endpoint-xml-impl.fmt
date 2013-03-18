@@ -4,15 +4,15 @@
 // DO NOT CHANGE!
 
 
-#import "${endpointInterface.name}_Client.h"
+#import "${endpointInterface.name}_XMLClient.h"
 
-@implementation ${endpointInterface.name}_Client
+@implementation ${endpointInterface.name}_XMLClient
 
     [#list endpointInterface.methods as method]
     [#assign param = method.parameters?first]
 -(void)${method.name}:(${param.type.fullName} *) requestObject 
       success:(void (^)(${method.returnType.fullName} *responseObject))success
-      failure:(void (^)(NSError *error, id<PicoBindable> soapFault))failure {
+      failure:(void (^)(NSError *error))failure {
  
      [#if eBaySOAService??]
        [#if method.webMethodAnnotation.operationName?length > 0]
@@ -29,13 +29,13 @@
      [/#if]
  
      [super invoke:requestObject responseClass:[${method.returnType.fullName} class]
-     success:^(PicoRequestOperation *operation, id<PicoBindable> responseObject) {
+     success:^(PicoXMLRequestOperation *operation, id<PicoBindable> responseObject) {
          if (success) {
              success(responseObject);
          }
-     } failure:^(PicoRequestOperation *operation, NSError *error, id<PicoBindable> soapFault) {
+     } failure:^(PicoXMLRequestOperation *operation, NSError *error) {
          if (failure) {
-             failure(error, soapFault);
+             failure(error);
          }
      }];
 }

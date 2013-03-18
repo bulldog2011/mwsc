@@ -23,8 +23,10 @@ import freemarker.template.SimpleHash;
 public class PicoWSClientModule extends AbstractWSClientModule {
 	
 	// references to templates
-	private URL eiIntfTemplate;
-	private URL eiImplTemplate;
+	private URL eiIntfSOAPTemplate;
+	private URL eiImplSOAPTemplate;
+	private URL eiIntfXMLTemplate;
+	private URL eiImplXMLTemplate;
 
 	@Override
 	public ModuleName getName() {
@@ -39,8 +41,10 @@ public class PicoWSClientModule extends AbstractWSClientModule {
 	
 	private void loadTemplates() throws WscModuleException {
 		//load template
-		eiIntfTemplate = this.getTemplateURL("client-endpoint-interface.fmt");
-		eiImplTemplate = this.getTemplateURL("client-endpoint-impl.fmt");
+		eiIntfSOAPTemplate = this.getTemplateURL("client-endpoint-soap-interface.fmt");
+		eiImplSOAPTemplate = this.getTemplateURL("client-endpoint-soap-impl.fmt");
+		eiIntfXMLTemplate = this.getTemplateURL("client-endpoint-xml-interface.fmt");
+		eiImplXMLTemplate = this.getTemplateURL("client-endpoint-xml-impl.fmt");
 	}
 
 	@Override
@@ -75,10 +79,14 @@ public class PicoWSClientModule extends AbstractWSClientModule {
 			}
 			String relativePath = ClassNameUtil.packageNameToPath(interfaceInfo.getPackageName());
 			relativePath += File.separator + "client";
-			FileInfo eiIntf = this.generateFile(eiIntfTemplate, fmModel, interfaceInfo.getName() + "_Client", "h", relativePath);
-			targetFileSet.add(eiIntf);
-			FileInfo eiImpl = this.generateFile(eiImplTemplate, fmModel, interfaceInfo.getName() + "_Client", "m", relativePath);
-			targetFileSet.add(eiImpl);
+			FileInfo eiSoapIntf = this.generateFile(eiIntfSOAPTemplate, fmModel, interfaceInfo.getName() + "_SOAPClient", "h", relativePath);
+			targetFileSet.add(eiSoapIntf);
+			FileInfo eiSoapImpl = this.generateFile(eiImplSOAPTemplate, fmModel, interfaceInfo.getName() + "_SOAPClient", "m", relativePath);
+			targetFileSet.add(eiSoapImpl);
+			FileInfo eiXmlIntf = this.generateFile(eiIntfXMLTemplate, fmModel, interfaceInfo.getName() + "_XMLClient", "h", relativePath);
+			targetFileSet.add(eiXmlIntf);
+			FileInfo eiXmlImpl = this.generateFile(eiImplXMLTemplate, fmModel, interfaceInfo.getName() + "_XMLClient", "m", relativePath);
+			targetFileSet.add(eiXmlImpl);
 		}
 		
 		return targetFileSet;

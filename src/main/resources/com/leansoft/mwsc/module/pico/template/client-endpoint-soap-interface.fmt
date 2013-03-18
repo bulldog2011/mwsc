@@ -12,14 +12,14 @@
 
 
 /**
- This class is the basic interface to the ${endpointInterface.name} Web Service for the client.
+ This class is the SOAP client to the ${endpointInterface.name} Web Service.
 */ 
 [#if endpointInterface.docComment??]
 /*
  ${endpointInterface.docComment?chop_linebreak?replace("\n", "\n ")?replace("\t", "")}
 */
 [/#if]
-@interface ${endpointInterface.name}_Client : PicoSOAPClient {
+@interface ${endpointInterface.name}_SOAPClient : PicoSOAPClient {
 
 }
 
