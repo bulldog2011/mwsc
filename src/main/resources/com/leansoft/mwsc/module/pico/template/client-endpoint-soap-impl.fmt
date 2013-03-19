@@ -28,7 +28,9 @@
         [/#if]
      if(!requestObject.version) {
         requestObject.version = [self.additionalParameters objectForKey:@"version"];
-     }       
+     }
+     [#else]
+     [super setDefaultHeader:@"SOAPAction" value: @"${method.webMethodAnnotation.action}"];
      [/#if]
  
      [super invoke:requestObject responseClass:[${method.returnType.fullName} class]

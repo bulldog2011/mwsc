@@ -7,8 +7,6 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import org.xml.sax.helpers.LocatorImpl;
-
 import com.leansoft.mwsc.model.FaultInfo;
 import com.leansoft.mwsc.model.MethodInfo;
 import com.leansoft.mwsc.model.ParameterInfo;
@@ -42,8 +40,6 @@ import com.sun.tools.ws.wscompile.ErrorReceiver;
 import com.sun.tools.ws.wsdl.document.soap.SOAPStyle;
 
 public class SEIModelBuilder {
-	
-	private static final String NEW_LINE = System.getProperty("line.separator");
 	
     private String serviceNS;
 	
@@ -123,35 +119,56 @@ public class SEIModelBuilder {
 		            	returnTypeName = method.getReturnType().getType()
 						.getName();
 		            }
+					if (this.isWrapped(operation)) { // wrapped response
+				        Response response = operation.getResponse();
+		                Block resBlock = response.getBodyBlocks().next();
+		                returnTypeName = resBlock.getType().getJavaType().getName();
+					}
 					TypeInfo returnType = new TypeInfo();
 					returnType.setFullName(returnTypeName);
 					returnType.setName(ClassNameUtil
 							.stripQualifier(returnTypeName));
 					methodInfo.setReturnType(returnType);
-					//methodJavaDoc += NEW_LINE + NEW_LINE + "@returns " + returnTypeName;
 					
 					methodInfo.setWebMethodAnnotation(getWebMethodAnnotation(operation, method.getName()));
 					methodInfo.setWebResultAnnotation(getWebResultAnnotation(operation));
 					methodInfo.setSoapBindingAnnotation(getSOAPBindingAnnotation(operation));
 					
-					for (JavaParameter parameter : method.getParametersList()) {
+					if (this.isWrapped(operation)) { // wrapped request parameter
+			            Block reqBlock = operation.getRequest().getBodyBlocks().next();
+			            String parameterTypeName = reqBlock.getType().getJavaType().getName();
+			            
 						ParameterInfo paramInfo = new ParameterInfo();
-						
-						// param name
-						paramInfo.setName(parameter.getName());
+			            paramInfo.setName("request");
 						// param type
 						TypeInfo paramType = new TypeInfo();
-						paramType.setFullName(parameter.getType().getName());
+						paramType.setFullName(parameterTypeName);
 						paramType.setName(ClassNameUtil
-								.stripQualifier(parameter.getType().getName()));
+								.stripQualifier(parameterTypeName));
 						paramInfo.setType(paramType);
-						
-						// @WebParam
-						paramInfo.setWebParamAnnotation(getWebParamAnnotation(operation, parameter));
 						
 						// add this param in method definition
 						methodInfo.getParameters().add(paramInfo);
-						//methodJavaDoc += NEW_LINE + "@param " + parameter.getName();
+					} else {
+						for (JavaParameter parameter : method.getParametersList()) {
+							ParameterInfo paramInfo = new ParameterInfo();
+							
+							// param name
+							paramInfo.setName(parameter.getName());
+							// param type
+							TypeInfo paramType = new TypeInfo();
+							paramType.setFullName(parameter.getType().getName());
+							paramType.setName(ClassNameUtil
+									.stripQualifier(parameter.getType().getName()));
+							paramInfo.setType(paramType);
+							
+							// @WebParam
+							paramInfo.setWebParamAnnotation(getWebParamAnnotation(operation, parameter));
+							
+							// add this param in method definition
+							methodInfo.getParameters().add(paramInfo);
+							//methodJavaDoc += NEW_LINE + "@param " + parameter.getName();
+						}
 					}
 					
 					// Fault
@@ -180,6 +197,14 @@ public class SEIModelBuilder {
 			}
 		}
 		return cgModel;
+	}
+	
+	public boolean isWrapped(Operation operation) {
+        if (operation.isWrapped() && operation.getStyle().equals(SOAPStyle.DOCUMENT)) {
+        	return true;
+        } else {
+        	return false;
+        }
 	}
 	
     private WebServiceAnnotation getWebServiceAnnotation(Port port) {
@@ -295,12 +320,12 @@ public class SEIModelBuilder {
 
         }
         
-        if (operation.isWrapped() && operation.getStyle().equals(SOAPStyle.DOCUMENT)) {
-			LocatorImpl locator = new LocatorImpl();
-			locator.setLineNumber(-1);
-			locator.setSystemId("SEIModelBuilder");
-        	errorReceiver.warning(locator, "javax.xml.ws.RequestWrapper is needed, but is not supprted yet");
-        }
+//        if (operation.isWrapped() && operation.getStyle().equals(SOAPStyle.DOCUMENT)) {
+//			LocatorImpl locator = new LocatorImpl();
+//			locator.setLineNumber(-1);
+//			locator.setSystemId("SEIModelBuilder");
+//        	errorReceiver.warning(locator, "javax.xml.ws.RequestWrapper is needed, but is not supprted yet");
+//        }
         
         return webResultAnno;
     }
