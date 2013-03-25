@@ -39,12 +39,12 @@
     <repository>
       <id>github.release.repo</id>
       <name>Release Repository</name>
-      <url>file:///dev/bulldog-repo/repo/releases</url>
+      <url>file:///Volumes/DATA/dev/bulldog-repo/repo/releases</url>
     </repository>
     <snapshotRepository>
       <id>github.snapshot.repo</id>
       <name>Snapshot Repository</name>
-      <url>file:///dev/bulldog-repo/repo/snapshots</url>
+      <url>file:///Volumes/DATA/dev/bulldog-repo/repo/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 
@@ -79,7 +79,7 @@
     <dependency>
     	<groupId>com.leansoft</groupId>
     	<artifactId>mxjc</artifactId>
-    	<version>0.5.2-SNAPSHOT</version>
+    	<version>0.6.0</version>
     </dependency>
   </dependencies>
   

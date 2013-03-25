@@ -42,6 +42,7 @@ import com.leansoft.mwsc.model.WSCodeGenModel;
 import com.leansoft.mwsc.module.WSClientModule;
 import com.leansoft.mwsc.module.WSModuleFactory;
 import com.leansoft.mwsc.module.WscModuleException;
+import com.leansoft.mwsc.resources.MwscompileMessages;
 import com.leansoft.mxjc.CodeBuilder;
 import com.leansoft.mxjc.builder.ModelBuilder;
 import com.leansoft.mxjc.model.CGConfig;
@@ -86,7 +87,7 @@ import java.util.Set;
  * @author Vivek Pandey, adapted by bulldog
  */
 public class WsimportTool {
-    private static final String WSIMPORT = "wsimport";
+    private static final String MWSC = "mwsc";
     private final PrintStream out;
 
     /**
@@ -216,6 +217,7 @@ public class WsimportTool {
                 CGConfig cgConfig = new CGConfig();
                 cgConfig.picoPrefix = options.prefix;
                 cgConfig.picoServiceGroup = wsCodeGenModel.getServiceEndpointInterfaces().get(0).getName();
+                // demo only configs
                 cgConfig.eBaySOAService = options.eBaySOAPService;
                 cgConfig.eBayShoppingAPI = options.eBayShoppingAPI;
                 cgConfig.eBayTradingAPI = options.eBayTradingAPI;
@@ -296,9 +298,8 @@ public class WsimportTool {
     }
 
     protected void usage(Options options) {
-        System.out.println(WscompileMessages.WSIMPORT_HELP(WSIMPORT));
-        System.out.println(WscompileMessages.WSIMPORT_USAGE_EXTENSIONS());
-        System.out.println(WscompileMessages.WSIMPORT_USAGE_EXAMPLES());
+        System.out.println(MwscompileMessages.MWSC_HELP(MWSC));
+        System.out.println(MwscompileMessages.MWSC_USAGE_EXAMPLES());
     }
     
     static class XjcErrorReceiverAdapter extends com.sun.tools.xjc.ErrorReceiver {
