@@ -47,7 +47,7 @@ Download zip package from repository mentioned in version history below, latest 
   * Feature: support Nano binding for Android
   * Enhancement: support Ant build
 
-#### 0.5.1 — *March 25, 2013* : [repository](https://github.com/bulldog2011/bulldog-repo/tree/master/repo/releases/com/leansoft/mwsc/0.5.0)
+#### 0.5.0 — *March 25, 2013* : [repository](https://github.com/bulldog2011/bulldog-repo/tree/master/repo/releases/com/leansoft/mwsc/0.5.0)
 
   * Initial version supporting Pico Web Service runtime
   
