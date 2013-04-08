@@ -21,7 +21,8 @@ import freemarker.template.SimpleHash;
 
 public class NanoWSClientModule extends AbstractWSClientModule {
 	
-	private URL SOAPClientTemplate;
+	private URL soapClientTemplate;
+	private URL xmlClientTemplate;
 
 	@Override
 	public ModuleName getName() {
@@ -36,7 +37,8 @@ public class NanoWSClientModule extends AbstractWSClientModule {
 	
 	private void loadTemplates() throws WscModuleException {
 		//load template
-		SOAPClientTemplate = this.getTemplateURL("client-endpoint-soap.fmt");
+		soapClientTemplate = this.getTemplateURL("client-endpoint-soap.fmt");
+		xmlClientTemplate = this.getTemplateURL("client-endpoint-xml.fmt");
 	}
 
 	@Override
@@ -60,8 +62,10 @@ public class NanoWSClientModule extends AbstractWSClientModule {
 
 			String relativePath = ClassNameUtil.packageNameToPath(interfaceInfo.getPackageName());
 			relativePath += File.separator + "client";
-			FileInfo eiSoapClient = this.generateFile(SOAPClientTemplate, fmModel, interfaceInfo.getName() + "_SOAPClient", "java", relativePath);
+			FileInfo eiSoapClient = this.generateFile(soapClientTemplate, fmModel, interfaceInfo.getName() + "_SOAPClient", "java", relativePath);
 			targetFileSet.add(eiSoapClient);
+			FileInfo eiXmlClient = this.generateFile(xmlClientTemplate, fmModel, interfaceInfo.getName() + "_XMLClient", "java", relativePath);
+			targetFileSet.add(eiXmlClient);
 		}
 		
 		return targetFileSet;
