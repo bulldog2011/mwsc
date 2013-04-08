@@ -29,6 +29,15 @@ public class ${endpointInterface.name}_SOAPClient extends NanoSOAPClient {
      ${method.docComment?default("public method")?replace("\n", "\n ")?replace("\t", "")}
     */
     public void ${method.name}(${param.type.name} requestObject, SOAPServiceCallback<${method.returnType.name}> serviceCallback) {
+       
+       [#if config.EBaySOAService] 
+       [#if method.webMethodAnnotation.operationName?length > 0]
+        super.getAsyncHttpClient().addHeader("X-EBAY-SOA-OPERATION-NAME", "${method.webMethodAnnotation.operationName}");
+       [#else]
+        super.getAsyncHttpClient().addHeader("X-EBAY-SOA-OPERATION-NAME", "${method.name}");       
+       [/#if]
+       [/#if]
+        
         super.invoke(requestObject, serviceCallback, ${method.returnType.name}.class);
     }
 
