@@ -3,7 +3,7 @@
 
   <groupId>com.leansoft</groupId>
   <artifactId>mwsc</artifactId>
-  <version>0.6.0</version>
+  <version>0.6.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>mwsc</name>
@@ -14,7 +14,7 @@
         <connection>scm:git:git@github.com:bulldog2011/mwsc.git</connection>
         <developerConnection>scm:git:git@github.com:bulldog2011/mwsc.git</developerConnection>
         <url>https://github.com/bulldog2011/mwsc</url>
-    <tag>mwsc-0.6.0</tag>
+    <tag>HEAD</tag>
   </scm>
     <licenses>
         <license>
