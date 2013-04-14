@@ -221,19 +221,22 @@ public class WsimportTool {
                 cgConfig.eBaySOAService = options.eBaySOAPService;
                 cgConfig.eBayShoppingAPI = options.eBayShoppingAPI;
                 cgConfig.eBayTradingAPI = options.eBayTradingAPI;
+                
+                // for nano binding
+                cgConfig.nanoPrivateField = options.privateField;
         		
                 // use specific client module to generate code
                 Set<FileInfo> targetFiles = new HashSet<FileInfo>();
                 try {
                     // generate types first
-                    ClientModule clientModule = ModuleFactory.getModule(ModuleName.PICO); // TODO, support Nano
+                    ClientModule clientModule = ModuleFactory.getModule(options.module);
                     clientModule.setErrorReceiver(xjcErrorReceiver);// enable reporting
                     clientModule.init();
                     
 					Set<FileInfo> typeFiles = clientModule.generate(jaxbCodeGenModel, cgConfig);
 					
 					// then generate ws client
-					WSClientModule wsClientModule = WSModuleFactory.getModule(ModuleName.PICO); // TODO, support Nano
+					WSClientModule wsClientModule = WSModuleFactory.getModule(options.module);
 					wsClientModule.setErrorReceiver(receiver);
 					wsClientModule.init();
 					

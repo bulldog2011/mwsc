@@ -63,6 +63,8 @@ public class WsimportOptionsEx extends WsimportOptions {
     public boolean eBayTradingAPI = false;
     
     public String prefix;
+    
+    public boolean privateField;
 	
     /**
      * Extended JAXB's {@link SchemaCompiler} to be used for handling the schema portion.
@@ -103,6 +105,11 @@ public class WsimportOptionsEx extends WsimportOptions {
         
         if (args[i].equals("-ebaytrading")) {
         	this.eBayTradingAPI = true;
+        	return 1;
+        }
+        
+        if (args[i].equals("-privateField")) {
+        	this.privateField = true;
         	return 1;
         }
         
