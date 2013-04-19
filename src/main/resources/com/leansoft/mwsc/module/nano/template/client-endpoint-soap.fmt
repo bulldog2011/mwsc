@@ -31,11 +31,20 @@ public class ${endpointInterface.name}_SOAPClient extends NanoSOAPClient {
     public void ${method.name}(${param.type.name} requestObject, SOAPServiceCallback<${method.returnType.name}> serviceCallback) {
        
        [#if config.EBaySOAService] 
-       [#if method.webMethodAnnotation.operationName?length > 0]
+         [#if method.webMethodAnnotation.operationName?length > 0]
         super.getAsyncHttpClient().addHeader("X-EBAY-SOA-OPERATION-NAME", "${method.webMethodAnnotation.operationName}");
-       [#else]
+         [#else]
         super.getAsyncHttpClient().addHeader("X-EBAY-SOA-OPERATION-NAME", "${method.name}");       
-       [/#if]
+         [/#if]
+       [#elseif config.EBayTradingAPI]
+         [#if method.webMethodAnnotation.operationName?length > 0]
+        super.addUrlParam("callname", "${method.webMethodAnnotation.operationName}");
+         [#else]
+        super.addUrlParam("callname", "${method.name}");       
+         [/#if]
+        if(requestObject.version == null) {
+          requestObject.version = super.getUrlParams().get("version");
+        }
        [/#if]
         
         super.invoke(requestObject, serviceCallback, ${method.returnType.name}.class);
