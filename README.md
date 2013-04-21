@@ -16,7 +16,7 @@ WSDL to IOS Objective-C and Android Java Code Generator based on JAX-WS Wsimport
 
 ## How to Use
 
-Download zip package from repository mentioned in version history below, latest stable release is [0.6.0](https://github.com/bulldog2011/bulldog-repo/tree/master/repo/releases/com/leansoft/mwsc/0.6.0), then extract the zip file and run mwsc script in command line:
+Download zip package from repository mentioned in version history below, latest stable release is [0.6.0](https://github.com/bulldog2011/bulldog-repo/raw/master/repo/releases/com/leansoft/mwsc/0.6.0/mwsc-0.6.0-bin.zip), then extract the zip file and run mwsc script in command line:
 
 	Usage: mwsc [options] <WSDL_URI>
 	
