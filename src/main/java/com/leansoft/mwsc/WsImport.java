@@ -11,7 +11,8 @@ public class WsImport {
      * load tools.jar
      */
     public static void main(String[] args) throws Throwable {
-        System.exit(Invoker.invoke("com.leansoft.mwsc.WsimportTool", args));
+        doMain(args);
+    	//System.exit(Invoker.invoke("com.leansoft.mwsc.WsimportTool", args));
     }
 
     /**
