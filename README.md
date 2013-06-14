@@ -63,6 +63,9 @@ Download zip package from repository mentioned in version history below, latest 
 1. [Wsdl Driven Development on iOS - the Big Picture](http://bulldog2011.github.com/blog/2013/03/25/wsdl-driven-development-on-ios-the-big-picture/)
 2. [Wsdl Driven Development on Android - the Big Picture]()
 
+## FAQ
+[Link to faq on wiki](https://github.com/bulldog2011/mwsc/wiki/FAQ)
+
 ## Current Limitation
 1. Only Document/Literal style WSDL is support, RPC style wsdl is not supported
 2. Only single target namespace is supported(please specify target package if your wsdl contains multiple namespaces)
