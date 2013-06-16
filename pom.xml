@@ -3,7 +3,7 @@
 
   <groupId>com.leansoft</groupId>
   <artifactId>mwsc</artifactId>
-  <version>0.6.0-SNAPSHOT</version>
+  <version>0.6.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>mwsc</name>
