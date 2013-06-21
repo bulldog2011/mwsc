@@ -45,6 +45,8 @@ public class ${endpointInterface.name}_SOAPClient extends NanoSOAPClient {
         if(requestObject.version == null) {
           requestObject.version = super.getUrlParams().get("version");
         }
+       [#else]
+        super.getAsyncHttpClient().addHeader("SOAPAction", "${method.webMethodAnnotation.action}"); 
        [/#if]
         
         super.invoke(requestObject, serviceCallback, ${method.returnType.name}.class);
